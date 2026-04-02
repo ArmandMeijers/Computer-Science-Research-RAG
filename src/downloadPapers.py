@@ -1,22 +1,21 @@
 '''
 Author: Armand Meijers
 Date: 02/04/2026
-Description: Downloads a set of Comp Sci Research Papers from arxiv and stores in folder data/raw/papers
+Description: Downloads a set of Comp Sci Research Papers from arxiv (https://arxiv.org) and stores in folder data/raw/papers
 '''
 
 #imports
 import arxiv, json, os, time
 
-
 # folder to store papers
 folder = "data/raw/papers"
 os.makedirs(folder, exist_ok=True)
 
-CURRENT_PAPER = 1 #file index identifier
 MAX_PAPERS = 25
-
 CATEGORIES = ["cs.LG","cs.AI","cs.CL","cs.CV"] #types of papers searched for.
+
 metadata = []
+CURRENT_PAPER = 1 #file index identifier
 
 #Dowloads n number of docs for each categorie states in the list
 for category in CATEGORIES:
@@ -26,6 +25,7 @@ for category in CATEGORIES:
     search = arxiv.Search(
         query=query, 
         max_results=MAX_PAPERS,
+        #https://arxiv.org
     )
 
     #for each result download document
@@ -55,5 +55,7 @@ for category in CATEGORIES:
         CURRENT_PAPER += 1 
         time.sleep(1) #preventing excessive requests
 
-with open("data/raw/papers/metadata.json", "w", encoding="utf-8") as f:
+
+#writes metaData into a json file
+with open("data/processed/metadata/doc_metadata.json", "w", encoding="utf-8") as f:
     json.dump(metadata, f, ensure_ascii=False, indent=2)
