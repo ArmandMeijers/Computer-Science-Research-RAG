@@ -14,10 +14,20 @@ def chunking_files_pdf(DOCUMENT_PATH):
     Reads all PDFs in DOCUMENTS_PATH, splits pages into chunks,
     and returns a list of chunk objects with metadata.
 
+    Args:
+        DOCUMENT_PATH (str):    path to document folder (e.g., data/raw/papers) 
+
     Returns:
         List[Dict]: Each dict has "text" and "metadata"  with valyes filename, page, chunk_index
     """
 
+    has_files = any(os.path.isfile(os.path.join(DOCUMENT_PATH, f)) for f in os.listdir(DOCUMENT_PATH))
+
+    if has_files:
+        None
+    else:
+        print("[ERROR] run download script in src first!")
+        return 0
 
     #chunk tokens
     CHUNK_SIZE = 500
@@ -69,8 +79,9 @@ def chunking_files_pdf(DOCUMENT_PATH):
                     
                     #append metadata to array
                     chunk_metadata.append({
+                        "id": f"{file}_{page_index}_{chunk_index}",
                         "text": chunk,
-                        "metadata": {
+                        "meta": {
                             "filename": file,
                             "page": page_index,
                             "chunk_index": chunk_index,

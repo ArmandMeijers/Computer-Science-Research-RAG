@@ -1,5 +1,5 @@
-vector_store/
 data/raw/papers/
+data/processed/metadata/
 .env
 __pycache__/
 *.pyc
