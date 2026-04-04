@@ -1,5 +1,6 @@
 data/raw/papers/
 data/processed/metadata/
+data/processed/vector_DB/
 .env
 __pycache__/
 *.pyc

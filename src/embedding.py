@@ -28,5 +28,10 @@ def embedding_text(datafile_path):
     vectors = np.array(embeddings).astype("float32")
     index.add(vectors)
     
-    faiss.write_index(index, "data/vector_DB/index.faiss")
 
+    vector_path = "data/processed/vector_DB/index.faiss"
+    os.makedirs(os.path.dirname(vector_path), exist_ok=True)
+    faiss.write_index(index, vector_path)
+
+    print(f"[LOG] FAISS vector DB saved at: {vector_path}")
+    return vector_path
